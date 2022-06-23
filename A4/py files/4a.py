@@ -1,0 +1,20 @@
+from scipy import linalg
+from scipy.integrate import quad
+import numpy as np
+import scipy.special as sp
+import math
+from numpy import sin
+from numpy import cos
+from numpy import exp
+
+pie = math.pi
+x = np.linspace(0, 2*pie, 401)
+x = x[:-1]
+A = np.zeros((400, 51))
+A[:, 0] = 1
+for i in range(1, 26):
+    A[:, 2*i-1] = cos(i*x)
+    A[:, 2*i] = sin(i*x)
+b = np.exp(x)
+c = np.linalg.lstsq(A, b)[0]
+print(c)

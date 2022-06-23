@@ -1,0 +1,72 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{url}
+\usepackage[left=20mm, top=0in]{geometry}
+
+\begin{document}
+\title{Assignment No 3 : Fitting Data to Models}
+\author{JAGAN M J EE20B047}
+\maketitle
+
+\section{Objective}
+\begin{itemize}
+\item Analysing and extraction of data from a file
+\item Study the effects of noise on the fitting process.
+\item Plot different types of graphs
+\end{itemize}
+
+
+
+\section{Extracting and visualizing the data}
+
+We have been given a file : \textit{\path{generate_data.py}}. After running the code, the ouput is stored in a file : \textit{\path{fitting.dat}}. This file has 10 columns annd 101 rows. The first column is time and other columns are values of function of time after which noise is added. On plotting the data file, the following figure is obtained
+\includegraphics{figure_1.png}
+
+
+
+This is the figure 0 mentioned in the question. The function computed is 1.05J2(t) - 0.105t + n(t), where n(t) is the noise added to the function 
+
+
+\section{Visualising noise - The Errorbar Plot}
+
+This plot tells us the uncertainity in the observed measurement. The plot is made starting from the first data column and later plotting after every 5th data point with errorbars. The original function has also been plotted so as to compare with the error bars.
+
+\includegraphics{figure_2.png}
+
+\section{The Matrix equation}
+We obtain the matrix M and p where M is a square matrix having first column as J2(tm) and second column as tm, p is a column matrix of A and B. Upon matrix multiplication of M and p, we get the corresponding column matrix which is then compared with the user defined function : AJ2 (t) +Bt. These both matrices are then compared with the help of np.allclose() which will then give the output as 'True'.
+
+\section{The Mean Squared Error}
+The mean squared error between the noisy data and the actual data is given by : 
+$$\varepsilon_{ij} = (\frac{1}{101})\sum_{k=0}^{101}(f_{k} - g(t_{k},A_{i},B_{j}))^{2}$$ \\
+This squared error is only calculated for the first column of data values.
+Later, contour plot of $\varepsilon_{ij}$  for different values of A and B is plotted as shown 
+
+\includegraphics{figure_3.png}
+
+\section{Estimation of A and B}
+
+The plot of error in estimates for A and B is as shown
+
+\includegraphics[width = 0.9\textwidth]{figure_4.png}
+
+Clearly the error in the parameters are non-linear with respect to the noise. However by plotting in a loglog scale, the plot becomes linear with noise as $\sigma$ is uniformally placed in the log scale
+
+\includegraphics[width = 0.9\textwidth]{figure_5.png}
+
+\section{Result}
+
+Analysing and extraction of the given nosiy data was possible and the best estimate for A and B were found by minimising the mean squared error. Also the error in the parameters A and B was approximately linear with the noise in a loglog plot
+
+
+
+
+
+
+
+
+
+
+\end{document}
